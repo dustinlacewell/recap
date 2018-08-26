@@ -1,14 +1,11 @@
 import os
-from time import gmtime, strftime
 from subprocess import check_output, run
 
+from xdg import (XDG_CACHE_HOME, XDG_CONFIG_DIRS, XDG_CONFIG_HOME,
+                 XDG_DATA_DIRS, XDG_DATA_HOME, XDG_RUNTIME_DIR)
 import click
 
-def timestamp():
-    return strftime("%Y-%m-%d-%H-%M-%S", gmtime())
-
-def even(i):
-    return i + (i % 2)
+from recap.util import even, timestamp
 
 def sel(fullscreen=False):
     if fullscreen:
@@ -105,7 +102,10 @@ def cap(full, upload):
     file_name = filename("png")
     full_arg = "" if full else "-s"
     run("maim {} {}".format(full_arg, file_name), shell=True)
+    if upload:
+        run("imgur-screenshot {}".format(file_name))
     click.echo(os.path.expanduser(file_name))
 
-cli.add_command(rec)
 cli.add_command(cap)
+cli.add_command(rec)
+
