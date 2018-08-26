@@ -9,5 +9,7 @@ in buildPythonApplication {
   name = "recap";
   src = ./.;
   checkInputs = [ pytest ];
-  propagatedBuildInputs =  [ click maim slop ffmpeg xorg.xdpyinfo extra.xdg ];
+  checkPhase = null;
+  propagatedBuildInputs =  [
+    toml click maim slop ffmpeg xorg.xdpyinfo extra.xdg ];
 }
