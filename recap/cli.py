@@ -1,11 +1,11 @@
+import sys
 import os
+import pathlib
 from subprocess import check_output, run
 
-from xdg import (XDG_CACHE_HOME, XDG_CONFIG_DIRS, XDG_CONFIG_HOME,
-                 XDG_DATA_DIRS, XDG_DATA_HOME, XDG_RUNTIME_DIR)
 import click
 
-from recap.util import even, timestamp
+from recap import util
 
 def sel(fullscreen=False):
     if fullscreen:
@@ -25,8 +25,8 @@ def input_args(source, fmt, size):
 
 def capture_args(fullscreen):
     x,y,w,h,g,i = sel(fullscreen)
-    size = "{}x{}".format(even(int(w)), even(int(h)))
-    source = ":0.0+{},{}".format(even(int(x)), even(int(y)))
+    size = "{}x{}".format(util.even(int(w)), util.even(int(h)))
+    source = ":0.0+{},{}".format(util.even(int(x)), util.even(int(y)))
     return input_args(source, "x11grab", size)
 
 def video_args(codec, fmt, framerate, bitrate, minrate, maxrate):
@@ -45,7 +45,7 @@ def webm_args(framerate, bitrate, minrate, maxrate):
     return video_args("libvpx-vp9", "yuv444p", framerate, bitrate, minrate, maxrate)
 
 def filename(ext):
-    return os.path.join("~","www","caps", "{}.{}".format(timestamp(), ext))
+    return os.path.join("~","www","caps", "{}.{}".format(util.timestamp(), ext))
 
 def do(input_args, video_args, filename, extras=""):
     command = "ffmpeg {} {} {} {}".format(input_args, video_args, extras, filename)
@@ -106,6 +106,11 @@ def cap(full, upload):
         run("imgur-screenshot {}".format(file_name))
     click.echo(os.path.expanduser(file_name))
 
+@click.command()
+def test():
+    file = pathlib.Path(sys.prefix) / pathlib.Path("recap/data/config.toml")
+    click.echo(file.read_text("utf-8"))
+
 cli.add_command(cap)
 cli.add_command(rec)
-
+cli.add_command(test)
