@@ -3,11 +3,11 @@ Simple screen recorder and capture tool.
 """
 from setuptools import find_packages, setup
 
-dependencies = ['click', 'xdg']
+dependencies = ['click']
 
 setup(
     name='recap',
-    version='0.1.1',
+    version='0.1.2',
     url='https://github.com/dustinlacewell/recap',
     license='BSD',
     author='Dustin Lacewell',
