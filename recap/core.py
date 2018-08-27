@@ -1,7 +1,7 @@
 from functools import update_wrapper
 from os.path import expanduser
 from pathlib import Path as P
-from subprocess import run, Popen, PIPE, check_output
+from subprocess import run, Popen, PIPE, check_output, DEVNULL
 
 import click
 from click.globals import get_current_context
@@ -51,11 +51,15 @@ def command(f):
 
         if rc.cap.upload:
             cmd = "imgur-screenshot --open false {}".format(rc.target)
-            output = check_output(cmd, shell=True)
-            for line in output.splitlines():
+            # cmd = ["zsh", "-c",
+            #        "'imgur-screenshot --open false {}'".format(rc.target)]
+            output = Popen(cmd, shell=True, stdout=PIPE)
+
+            for line in output.stdout:
                 if line.startswith(b"image"):
                     parts = line.split()
                     rc.target = parts[-1]
+                    break
 
         if rc.clip:
             # "primary"
