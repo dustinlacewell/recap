@@ -39,7 +39,7 @@ def command(f):
         # compute the target filename
         destination = P(rcfmt(rc, expanduser(subrc.destination)))
         filename = (rcfmt(rc, subrc.filename) + "." + subrc.encoding)
-        rc.target = destination / filename
+        rc.target = expanduser(str(destination / filename))
 
         # ensure target path exists
         destination.mkdir(parents=True, exist_ok=True)
@@ -47,19 +47,25 @@ def command(f):
         # execute the command
         f(rc)
 
-        click.echo(rc.target)
+        if rc.cap.link:
+            if rc.cap.link == 'imgur':
+                cmd = "imgur-screenshot --open false {}".format(rc.target)
+                # cmd = ["zsh", "-c",
+                #        "'imgur-screenshot --open false {}'".format(rc.target)]
+                output = Popen(cmd, shell=True, stdout=PIPE)
 
-        if rc.cap.upload:
-            cmd = "imgur-screenshot --open false {}".format(rc.target)
-            # cmd = ["zsh", "-c",
-            #        "'imgur-screenshot --open false {}'".format(rc.target)]
-            output = Popen(cmd, shell=True, stdout=PIPE)
-
-            for line in output.stdout:
-                if line.startswith(b"image"):
-                    parts = line.split()
-                    rc.target = parts[-1]
-                    break
+                for line in output.stdout:
+                    if line.startswith(b"image"):
+                        parts = line.split()
+                        rc.target = parts[-1]
+                        break
+            else:
+                cap = rc.cap
+                if cap.webroot:
+                    cap.webroot = expanduser(cap.webroot)
+                    if str(rc.target).startswith(cap.webroot):
+                        rc.target = str(rc.target)[len(cap.webroot):]
+                rc.target = rc.cap.link.format(target=rc.target)
 
         if rc.clip:
             # "primary"
@@ -68,6 +74,8 @@ def command(f):
             # "clipboard"
             xsel_proc = Popen(['xclip', '-i', '-sel', 'c'], stdin=PIPE)
             xsel_proc.communicate(str(rc.target).encode('utf-8'))
+
+        click.echo(rc.target)
 
         if rc.open:
             run("xdg-open {}".format(rc.target), shell=True)

@@ -2,10 +2,6 @@
 fullscreen = false
 # copy result to clipboard?
 clip = false
-# generate link with template instead of filename
-link = ""
-# path to skim off filename when used in link template
-webroot = ""
 # open the file afterwards?
 open = false
 # extra slop arguments
@@ -24,6 +20,13 @@ fps = "60"
 bitrate = "2500"
 minrate = "1000"
 maxrate = "3000"
+# a link template containing {target}
+# use a link template if the file is hosted by a local webserver
+link = ""
+# path to skim off filename when used in link template
+# with webroot /var/www, /var/www/pics/foo.png => pics/foo.png
+# use this to ensure the link template generates proper links
+webroot = ""
 
 [cap]
 # where to store images
@@ -32,5 +35,11 @@ destination = "~/Pictures/"
 filename = "%Y-%m-%d-%H-%M-%S"
 # the encoding of the image
 encoding = "png" # png, jpg
-# whether to upload with imgur-screenshot
-upload = false
+# either 'imgur' or a link template containing {target}
+# imgur will use imgur-screenshot to upload the image
+# use a link template if the file is hosted by a local webserver
+link = ""
+# path to skim off filename when used in link template
+# with webroot /var/www, /var/www/pics/foo.png => pics/foo.png
+# use this to ensure the link template generates proper links
+webroot = ""

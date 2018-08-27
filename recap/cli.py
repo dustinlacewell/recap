@@ -10,8 +10,6 @@ from recap.core import group, command
 @click.group()
 @click.option('--fullscreen/--select', default=rc.fullscreen)
 @click.option('--clip/--no-clip', default=rc.clip)
-@click.option('--link', default=rc.link)
-@click.option('--webroot', default=rc.webroot)
 @click.option('--open/--no-open', default=rc.open)
 @click.option('--slop', default=rc.slop)
 @group
@@ -45,7 +43,8 @@ def rec(rc):
 @click.command()
 @click.option('--destination', default=rc.cap.destination)
 @click.option('--filename', default=rc.cap.filename)
-@click.option('--upload/--no-upload', default=rc.cap.upload)
+@click.option('--link', default=rc.cap.link)
+@click.option('--webroot', default=rc.cap.webroot)
 @click.option('--encoding', '-e',
               type=click.Choice(['png', 'jpg']),
               default=rc.cap.encoding)
