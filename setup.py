@@ -3,18 +3,18 @@ Simple screen recorder and capture tool.
 """
 from setuptools import find_packages, setup
 
-dependencies = ['click']
+dependencies = ['attrdict', 'click', 'toml']
 
 setup(
     name='recap',
-    version='0.1.2',
+    version='0.1.3',
     url='https://github.com/dustinlacewell/recap',
     license='BSD',
     author='Dustin Lacewell',
     author_email='dlacewell@gmail.com',
     description='Simple screen recorder and capture tool.',
     long_description=__doc__,
-    data_files=[('data', ['data/config.toml'])],
+    package_data={'recap': ['data/*']},
     packages=find_packages(exclude=['tests']),
     include_package_data=True,
     zip_safe=False,

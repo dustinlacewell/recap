@@ -1,8 +1,0 @@
-Debugger entered--Lisp error: (error "Empty file name")
-  signal(error ("Empty file name"))
-  error("Empty file name")
-  set-visited-file-name("/home/ldlework/src/recap/data/" nil)
-  write-file("/home/ldlework/src/recap/data/" t)
-  funcall-interactively(write-file "/home/ldlework/src/recap/data/" t)
-  call-interactively(write-file nil nil)
-  command-execute(write-file)
