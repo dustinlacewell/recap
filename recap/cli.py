@@ -52,7 +52,7 @@ def rec(rc):
 def cap(rc):
     """Capture Screenshot"""
     x, y, w, h = rc.selection
-    geom = "-g {}x{}-{}+{}".format(w, h, x, y)
+    geom = "-g {}x{}+{}+{}".format(w, h, x, y)
     cmd = "maim {} {}".format(geom, rc.target)
     click.echo(cmd)
     util.quiet(cmd, shell=True)
