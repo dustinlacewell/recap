@@ -1,3 +1,5 @@
+import sys
+
 import click
 
 from recap import util, signals

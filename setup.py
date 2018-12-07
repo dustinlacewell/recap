@@ -23,6 +23,7 @@ setup(
     entry_points={
         'console_scripts': [
             'recap = recap.cli:cli',
+            'recap-rofi = recap.menu:main',
         ],
     },
     classifiers=[

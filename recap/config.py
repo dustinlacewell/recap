@@ -4,7 +4,8 @@ from shutil import copyfile
 
 
 import toml
-from attrdict import AttrDict as A
+
+from addict import Dict as A
 
 from recap.merge import dict_merge
 
