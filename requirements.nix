@@ -14,12 +14,11 @@ rec {
   };
   python-rofi = buildPythonPackage {
     name = "python-rofi";
-    # src = fetchFromGitHub {
-      #   owner = "dustinlacewell";
-      #   repo = "python-rofi";
-      #   rev = "d0092a834f2fb9ff9625d41ec06db4da8ef00b27";
-      #   sha256 = "1yzblrxdykj92d2n052x3q5gqbam3m74p16ih6vy2qzf8qprhpw5";
-      # };
-    src = /home/ldlework/src/python-rofi;
+    src = fetchFromGitHub {
+      owner = "dustinlacewell";
+      repo = "python-rofi";
+      rev = "7f5e8ca81392aacfdd216488d76f564f9fc9b70c";
+      sha256 = "1yzblrxdykj92d2n052x3q5gqbam3m74p16ih6vy2qzf8qprhpw5";
+    };
   };
 }
