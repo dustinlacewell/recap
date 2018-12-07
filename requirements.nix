@@ -18,7 +18,7 @@ rec {
       owner = "dustinlacewell";
       repo = "python-rofi";
       rev = "7f5e8ca81392aacfdd216488d76f564f9fc9b70c";
-      sha256 = "1yzblrxdykj92d2n052x3q5gqbam3m74p16ih6vy2qzf8qprhpw5";
+      sha256 = "0zl4bki4sxvwplqsx187hdz6ln2r8mw803n2sbac5h65p1bbln6b";
     };
   };
 }
