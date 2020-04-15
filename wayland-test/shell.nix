@@ -3,9 +3,11 @@ let
   recap = (import ../default.nix).override {
     maim = pkgs.writeScriptBin "maim" ''grim $@'';
     slop = pkgs.writeScriptBin "slop" ''slurp $@'';
-    xdpyinfo = pkgs.writeScriptBin "xdpyinfo" ''
-      echo "dimensions $(swaymsg -p -t get_outputs | grep mode | awk '{print $3}')"
-    '';
+    xorg = pkgs.xorg.override {
+      xdpyinfo = pkgs.writeScriptBin "xdpyinfo" ''
+        echo "dimensions $(swaymsg -p -t get_outputs | grep mode | awk '{print $3}')"
+      '';
+    };
   };
 
 in pkgs.stdenv.mkDerivation {
