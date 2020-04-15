@@ -1,0 +1,11 @@
+output "*" bg ~/www/wallpapers/gris.jpg fill
+
+set $mod Shift
+
+set $term alacritty
+
+set $menu rofi -terminal terminator -theme ~/.config/sway/rofi/flat-orange.rasi -show run
+
+bindsym Shift+e exec alacritty
+
+
